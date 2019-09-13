@@ -40,14 +40,14 @@
     <footer class="tt-section tt-section--centerText">
       <div class="tt-grid tt-grid--horizontal">
         <span>↺</span>
-        <button class="tt-button" onclick="document.querySelector('dialog').showModal()">＋</button>
+        <button class="tt-button tt-button--opendialog">＋</button>
         <span>⎙</span>
       </div>
     </footer>
   </main>
 
   <dialog class="tt-dialog">
-    <form onsubmit="event.preventDefault(); document.querySelector('dialog').close()">
+    <form method="dialog">
       <header>
         <h2 class="tt-heading">Your Day</h2>
         <p class="tt-paragraph">Please fill in a day, your working hours and break time.</p>
@@ -55,24 +55,24 @@
       <section class="tt-grid tt-grid--vertical">
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTDay">Day</label>
-          <input class="tt-input" type="date" id="TTDay">
+          <input class="tt-input" type="date" id="TTDay" name="TTDay">
         </div>
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTStartTime">Start Time</label>
-          <input class="tt-input" type="time" value="09:00" id="TTStartTime">
+          <input class="tt-input" type="time" value="09:00" id="TTStartTime" name="TTStartTime">
         </div>
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTEndTime">End Time</label>
-          <input class="tt-input" type="time" value="18:00" id="TTEndTime">
+          <input class="tt-input" type="time" value="18:00" id="TTEndTime" name="TTEndTime">
         </div>
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTBreak">Break (hh:mm)</label>
-          <input class="tt-input" type="time" value="01:00" id="TTBreak">
+          <input class="tt-input" type="time" value="01:00" id="TTBreak" name="TTBreak">
         </div>
       </section>
       <footer class="tt-grid tt-grid--horizontal">
-        <button class="tt-button" type="button" onclick="document.querySelector('dialog').close()">Cancel</button>
-        <button class="tt-button" type="submit">Add to Sheet</button>
+        <button class="tt-button" type="submit" value="cancel">Cancel</button>
+        <button class="tt-button" type="submit" value="add">Add to Sheet</button>
       </footer>
     </form>
   </dialog>

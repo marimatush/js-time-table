@@ -33,18 +33,39 @@ const salaryField = document.querySelector('#TTHourlyWage');
 const appOutput = document.querySelector('#TTHours');
 const monthlySalaryOutput = document.querySelector('#TTMonthlySalary');
 const scrollContainer = document.querySelector('.tt-c-scrollContainer');
+const ttDialog = document.querySelector('dialog');
+const openDialogButton = document.querySelector('button.tt-button--opendialog');
+const ttForm = document.querySelector('dialog form');
 
 const calculate = () => {
     monthlySalary = hours * model.salary;
 };
 
+const extractHour = time => {
+    const parts = time.split(":");
+    const hour = parts[0];
+    return parseInt(hour);
+}
+
+const hoursOfDay = value => value.endTime - value.startTime - value.breakDuration;
+
+const convertListIntoTable = (acc, value) => {
+    const hours = value.endTime - value.startTime - value.breakDuration;
+
+    //totalHours = model.list.map(hoursOfDay);
+    return `${acc}<tr><td>${value.day}</td><td>${hours} Hours</td></tr>`;
+};
+
 const render = (model) => {
+    const tableHTMLMString = model.list.reduce(convertListIntoTable, '<table><tbody>') + '</tbody></table>';
+
     heading.innerText = `${model.company} Time Sheet ${model.name}`;
     nameField.value = model.name
     salaryField.value = model.salary
     appOutput.innerText = `${hours} Hours`;
     monthlySalaryOutput.innerText = `${monthlySalary} €`;
-    scrollContainer.innerHTML = '<b>This will be my table.</b>';
+
+    scrollContainer.innerHTML = tableHTMLMString;
 };
 
 const onNameFieldChanged = (event) => {
@@ -66,6 +87,33 @@ const onSalaryFieldChanged = (event) => {
     render(model);
 };
 
+const onDialogClosed = () => {
+    const returnValue = ttDialog.returnValue;
+    console.log(`Dialog is closed with ${returnValue}`);
+    if (returnValue !== 'add') {
+        return;
+    }
+
+    const formData = new FormData (ttForm);
+    const day = formData.get('TTDay');
+    const startTime = extractHour(formData.get('TTStartTime'));
+    const endTime = extractHour(formData.get('TTEndTime'));
+    const breakDuration = extractHour(formData.get('TTBreak'));
+
+    console.log(`Adding new value`);
+    const newEntry = {
+        day,
+        startTime,
+        endTime,
+        breakDuration
+    };
+
+    model.list.push(newEntry);
+    localStorage.setItem('myData', JSON.stringify(model));
+    calculate();
+    render(model);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Hello, Mister Spex!');
     const myData = localStorage.getItem('myData')
@@ -75,7 +123,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     nameField.addEventListener('keyup', onNameFieldChanged);
-    salaryField.addEventListener('keyup', onSalaryFieldChanged)
+    salaryField.addEventListener('keyup', onSalaryFieldChanged);
+    openDialogButton.addEventListener('click', () => {
+        ttDialog.showModal();
+    });
+    ttDialog.addEventListener('close', onDialogClosed);
 
     calculate();
     render(model);
