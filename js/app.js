@@ -24,7 +24,8 @@ let model = {
     ]
 };
 
-const hours = 8.0;
+//const hours = 8.0;
+let totalHours = 0;
 let monthlySalary = 0;
 
 const heading = document.querySelector('h1');
@@ -38,7 +39,8 @@ const openDialogButton = document.querySelector('button.tt-button--opendialog');
 const ttForm = document.querySelector('dialog form');
 
 const calculate = () => {
-    monthlySalary = hours * model.salary;
+    totalHours = model.list.map(hoursOfDay).reduce((acc, value) => acc += value);
+    monthlySalary = totalHours * model.salary;
 };
 
 const extractHour = time => {
@@ -50,9 +52,7 @@ const extractHour = time => {
 const hoursOfDay = value => value.endTime - value.startTime - value.breakDuration;
 
 const convertListIntoTable = (acc, value) => {
-    const hours = value.endTime - value.startTime - value.breakDuration;
-
-    //totalHours = model.list.map(hoursOfDay);
+    const hours = hoursOfDay(value);
     return `${acc}<tr><td>${value.day}</td><td>${hours} Hours</td></tr>`;
 };
 
@@ -62,7 +62,7 @@ const render = (model) => {
     heading.innerText = `${model.company} Time Sheet ${model.name}`;
     nameField.value = model.name
     salaryField.value = model.salary
-    appOutput.innerText = `${hours} Hours`;
+    appOutput.innerText = `${totalHours} Hours`;
     monthlySalaryOutput.innerText = `${monthlySalary} €`;
 
     scrollContainer.innerHTML = tableHTMLMString;
