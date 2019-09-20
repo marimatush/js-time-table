@@ -2,30 +2,11 @@ let model = {
     company: 'Mister Spex',
     name: '',
     salary: 0,
-    list: [
-        {
-            day: '2019-08-20',
-            startTime: 8,
-            endTime: 17,
-            breakDuration: 1
-        },
-        {
-            day: '2019-08-25',
-            startTime: 10,
-            endTime: 21,
-            breakDuration: 2
-        },
-        {
-            day: '2019-08-29',
-            startTime: 9,
-            endTime: 15,
-            breakDuration: 0.5
-        }
-    ]
+    list: []
 };
 
-//const hours = 8.0;
 let totalHours = 0;
+let workingHours = 0;
 let monthlySalary = 0;
 
 const heading = document.querySelector('h1');
@@ -39,8 +20,7 @@ const openDialogButton = document.querySelector('button.tt-button--opendialog');
 const ttForm = document.querySelector('dialog form');
 
 const calculate = () => {
-    totalHours = model.list.map(hoursOfDay).reduce((acc, value) => acc += value);
-    monthlySalary = totalHours * model.salary;
+    monthlySalary = (totalHours * model.salary).toFixed(2);
 };
 
 const extractHour = time => {
@@ -49,20 +29,46 @@ const extractHour = time => {
     return parseInt(hour);
 }
 
-const hoursOfDay = value => value.endTime - value.startTime - value.breakDuration;
+const totalTimestamp = value => value.endTime - value.startTime - value.breakDuration;
+const hoursOfDay = value => parseFloat(((value.endTime - value.startTime - value.breakDuration) / 1000 / 60 / 60).toFixed(2));
+const bySumming = (acc, value) => acc += value;
+const allHours = entries => entries.map(hoursOfDay).reduce(bySumming);
+const allHoursOutput = (entries) => {
+    const total = entries.map(totalTimestamp).reduce(bySumming);
+    return msToHHMM(total);
+}
+
+const msToHHMM = (ms) => {
+    const min = ms / 1000 / 60;
+    const hours = min / 60;
+    let hh = Math.floor(hours);
+    let mm = Math.floor((hours - hh) * 60);
+    
+    hh = String(hh).padStart(2, '0');
+    mm = String(mm).padStart(2, '0');
+
+    return hh + ':' + mm;
+}
 
 const convertListIntoTable = (acc, value) => {
-    const hours = hoursOfDay(value);
+    const totalms = totalTimestamp(value);
+    const hours = msToHHMM(totalTimestamp(value));
+
     return `${acc}<tr><td>${value.day}</td><td>${hours} Hours</td></tr>`;
 };
 
 const render = (model) => {
     const tableHTMLMString = model.list.reduce(convertListIntoTable, '<table><tbody>') + '</tbody></table>';
+    if (model.list.length > 0) {
+        totalHours = allHours(model.list);
+        workingHours = allHoursOutput(model.list);
+        calculate();
+    }  
 
     heading.innerText = `${model.company} Time Sheet ${model.name}`;
     nameField.value = model.name
     salaryField.value = model.salary
-    appOutput.innerText = `${totalHours} Hours`;
+    appOutput.innerText = `${workingHours} Hours`;
     monthlySalaryOutput.innerText = `${monthlySalary} €`;
 
     scrollContainer.innerHTML = tableHTMLMString;
@@ -83,7 +89,6 @@ const onSalaryFieldChanged = (event) => {
 
     localStorage.setItem('myData', JSON.stringify(model))
     console.log(`salary field was changed to ${newSalary}`);
-    calculate();
     render(model);
 };
 
@@ -94,11 +99,10 @@ const onDialogClosed = () => {
         return;
     }
 
-    const formData = new FormData (ttForm);
-    const day = formData.get('TTDay');
-    const startTime = extractHour(formData.get('TTStartTime'));
-    const endTime = extractHour(formData.get('TTEndTime'));
-    const breakDuration = extractHour(formData.get('TTBreak'));
+    const day = ttForm.elements.TTDay.value;
+    const breakDuration = ttForm.elements.TTBreak.valueAsNumber;
+    const startTime = ttForm.elements.TTStartTime.valueAsNumber;
+    const endTime =  ttForm.elements.TTEndTime.valueAsNumber;
 
     console.log(`Adding new value`);
     const newEntry = {
@@ -110,7 +114,6 @@ const onDialogClosed = () => {
 
     model.list.push(newEntry);
     localStorage.setItem('myData', JSON.stringify(model));
-    calculate();
     render(model);
 };
 
@@ -128,7 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ttDialog.showModal();
     });
     ttDialog.addEventListener('close', onDialogClosed);
-
-    calculate();
+  
     render(model);
 });
+
+
+
+// homework: reset all values
