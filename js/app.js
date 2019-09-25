@@ -121,7 +121,7 @@ const onDialogClosed = () => {
 };
 
 const onTimesheetReset = () => {
-    model.list.splice(0, model.list.length);
+    model.list = [];
     localStorage.setItem('myData', JSON.stringify(model));
     render(model);
 }
