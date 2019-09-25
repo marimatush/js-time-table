@@ -18,6 +18,7 @@ const scrollContainer = document.querySelector('.tt-c-scrollContainer');
 const ttDialog = document.querySelector('dialog');
 const openDialogButton = document.querySelector('button.tt-button--opendialog');
 const ttForm = document.querySelector('dialog form');
+const ttReset = document.querySelector('#TTReset');
 
 const calculate = () => {
     monthlySalary = (totalHours * model.salary).toFixed(2);
@@ -62,9 +63,12 @@ const render = (model) => {
     if (model.list.length > 0) {
         totalHours = allHours(model.list);
         workingHours = allHoursOutput(model.list);
-        calculate();
+    } else {
+        totalHours = 0;
+        workingHours = 0;
     }  
 
+    calculate();
     heading.innerText = `${model.company} Time Sheet ${model.name}`;
     nameField.value = model.name
     salaryField.value = model.salary
@@ -104,7 +108,6 @@ const onDialogClosed = () => {
     const startTime = ttForm.elements.TTStartTime.valueAsNumber;
     const endTime =  ttForm.elements.TTEndTime.valueAsNumber;
 
-    console.log(`Adding new value`);
     const newEntry = {
         day,
         startTime,
@@ -116,6 +119,12 @@ const onDialogClosed = () => {
     localStorage.setItem('myData', JSON.stringify(model));
     render(model);
 };
+
+const onTimesheetReset = () => {
+    model.list.splice(0, model.list.length);
+    localStorage.setItem('myData', JSON.stringify(model));
+    render(model);
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Hello, Mister Spex!');
@@ -131,10 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ttDialog.showModal();
     });
     ttDialog.addEventListener('close', onDialogClosed);
-  
+    ttReset.addEventListener('click', onTimesheetReset);
     render(model);
 });
-
-
-
-// homework: reset all values
