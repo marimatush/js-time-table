@@ -39,7 +39,7 @@
 
     <footer class="tt-section tt-section--centerText">
       <div class="tt-grid tt-grid--horizontal">
-        <span id="TTReset">↺</span>
+        <button class="tt-button" id="TTResetButton">↺</button>
         <button class="tt-button tt-button--opendialog">＋</button>
         <span>⎙</span>
       </div>
@@ -55,24 +55,24 @@
       <section class="tt-grid tt-grid--vertical">
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTDay">Day</label>
-          <input class="tt-input" type="date" id="TTDay" name="TTDay">
+          <input class="tt-input" type="date" id="TTDay" name="TTDay" required>
         </div>
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTStartTime">Start Time</label>
-          <input class="tt-input" type="time" value="09:00" id="TTStartTime" name="TTStartTime">
+          <input class="tt-input" type="time" id="TTStartTime" name="TTStartTime" required>
         </div>
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTEndTime">End Time</label>
-          <input class="tt-input" type="time" value="18:00" id="TTEndTime" name="TTEndTime">
+          <input class="tt-input" type="time" id="TTEndTime" name="TTEndTime" required>
         </div>
         <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
           <label class="tt-label" for="TTBreak">Break (hh:mm)</label>
-          <input class="tt-input" type="time" value="01:00" id="TTBreak" name="TTBreak">
+          <input class="tt-input" type="time" id="TTBreak" name="TTBreak" required>
         </div>
       </section>
       <footer class="tt-grid tt-grid--horizontal">
-        <button class="tt-button" type="submit" value="cancel">Cancel</button>
-        <button class="tt-button" type="submit" value="add">Add to Sheet</button>
+        <button class="tt-button tt-button--closedialog" type="button" value="cancel">Cancel</button>
+        <button class="tt-button tt-button--add" type="submit" value="add">Add to Sheet</button>
       </footer>
     </form>
   </dialog>

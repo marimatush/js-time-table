@@ -17,8 +17,10 @@ const monthlySalaryOutput = document.querySelector('#TTMonthlySalary');
 const scrollContainer = document.querySelector('.tt-c-scrollContainer');
 const ttDialog = document.querySelector('dialog');
 const openDialogButton = document.querySelector('button.tt-button--opendialog');
+const closeDialogButton = document.querySelector('button.tt-button--closedialog');
 const ttForm = document.querySelector('dialog form');
-const ttReset = document.querySelector('#TTReset');
+const ttResetButton = document.querySelector('#TTResetButton');
+const addButton = document.querySelector('button.tt-button--add')
 
 const calculate = () => {
     monthlySalary = (totalHours * model.salary).toFixed(2);
@@ -38,6 +40,10 @@ const allHoursOutput = (entries) => {
     const total = entries.map(totalTimestamp).reduce(bySumming);
     return msToHHMM(total);
 }
+const saveModelToLocalStorage = () => localStorage.setItem('myData', JSON.stringify(model));
+const getBreakDuration = () => ttForm.elements.TTBreak.valueAsNumber;
+const getStartTime = () => ttForm.elements.TTStartTime.valueAsNumber;
+const getEndTime = () => ttForm.elements.TTEndTime.valueAsNumber;
 
 const msToHHMM = (ms) => {
     const min = ms / 1000 / 60;
@@ -82,7 +88,7 @@ const onNameFieldChanged = (event) => {
     const newName = event.target.value;
     model.name = newName;
 
-    localStorage.setItem('myData', JSON.stringify(model))
+    saveModelToLocalStorage();
     console.log(`name field was changed to ${newName}`);
     render(model);
 };
@@ -91,7 +97,7 @@ const onSalaryFieldChanged = (event) => {
     const newSalary = event.target.value;
     model.salary = newSalary;
 
-    localStorage.setItem('myData', JSON.stringify(model))
+    saveModelToLocalStorage();
     console.log(`salary field was changed to ${newSalary}`);
     render(model);
 };
@@ -104,9 +110,9 @@ const onDialogClosed = () => {
     }
 
     const day = ttForm.elements.TTDay.value;
-    const breakDuration = ttForm.elements.TTBreak.valueAsNumber;
-    const startTime = ttForm.elements.TTStartTime.valueAsNumber;
-    const endTime =  ttForm.elements.TTEndTime.valueAsNumber;
+    const breakDuration = getBreakDuration();
+    const startTime = getStartTime();
+    const endTime =  getEndTime();
 
     const newEntry = {
         day,
@@ -116,14 +122,50 @@ const onDialogClosed = () => {
     };
 
     model.list.push(newEntry);
-    localStorage.setItem('myData', JSON.stringify(model));
+    saveModelToLocalStorage();
     render(model);
 };
 
-const onTimesheetReset = () => {
-    model.list = [];
-    localStorage.setItem('myData', JSON.stringify(model));
-    render(model);
+const onTimesheetReset = (event) => {
+    if (model.list.length === 0) {return;}
+
+    if (window.confirm('Are you sure you want to clear Timesheet?')) {
+        model.list = [];
+        saveModelToLocalStorage();
+        render(model);
+    }
+}
+
+const isStartBeforeEnd = () => (getEndTime() < getStartTime());
+
+const isNegativeWorktime = () => (getEndTime() - getStartTime() - getBreakDuration()) < 0;
+
+const isFutureDate = () => ttForm.elements.TTDay.valueAsDate > new Date();
+
+
+const onAddButtonClicked = (event) => {
+    if (ttForm.reportValidity() === false) {
+        event.preventDefault();
+        return;
+    }
+
+    if (isStartBeforeEnd()) {
+        window.alert('End time cannot be earlier than Start time');
+        event.preventDefault();
+        return;
+    }
+
+    if (isNegativeWorktime()) {
+        window.alert('Working time cannot be negative');
+        event.preventDefault();
+        return;
+    }
+
+    if (isFutureDate()) {
+        window.alert('Working date cannot be in the future');
+        event.preventDefault();
+        return;
+    }    
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -139,7 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
     openDialogButton.addEventListener('click', () => {
         ttDialog.showModal();
     });
+    closeDialogButton.addEventListener('click', () => {
+        ttDialog.close();
+    })
     ttDialog.addEventListener('close', onDialogClosed);
-    ttReset.addEventListener('click', onTimesheetReset);
+    ttResetButton.addEventListener('click', onTimesheetReset);
+    addButton.addEventListener('click', onAddButtonClicked);
     render(model);
 });
+
+
+// homework: more validations!!!
+// look up some other forms with validations and add to our project
+// add a message at the page insted of alerts
