@@ -1,0 +1,8 @@
+.tt-content__footer {
+  bottom: unset;
+  left: unset;
+  right: var(--🌐spacing--xl);
+  top: var(--🌐spacing--sm);
+  backdrop-filter: none;
+  width: auto;
+}

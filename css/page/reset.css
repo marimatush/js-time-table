@@ -1,0 +1,32 @@
+/*
+Reset standards
+
+-border-box for all the elements to control sizing
+-reset default browser margins to zero (no margins, no cry)
+-make svg block and overflow-visibility a standard
+-apply body font to all form elements
+
+No styleguide reference.
+*/
+
+/* border-box is used for every element */
+body, body *:not(script), body *:not(script)::before, body *:not(script)::after {
+  box-sizing: border-box;
+}
+
+/* reset default margins */
+body, h1, h2, p {
+  margin: 0;
+}
+
+/* images are responsive & display block makes it more handy. In 99 % of the cases */
+svg {
+  display: block;
+  overflow: visible;
+}
+
+/* form elements need font inheritance */
+input, button {
+  border: none;
+  font: inherit;
+}

@@ -1,0 +1,65 @@
+/*
+Dialog
+
+Native dialogs are amazing. The dialog acts as a container for any content you'd like to show.
+Note: Closing and opening are not part of the dialog itself. Add your own!
+
+Markup:
+<button class="t-button" onclick="this.nextElementSibling.showModal()">Open Dialog</button>
+<dialog class="t-dialog">
+  <p class="t-paragraph">Lorem ipsum dolor sit amet ... eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+</dialog>
+
+Styleguide Components.Dialog
+*/
+
+/* Setup */
+.t-dialog {
+  --t-dialog\backgroundColor: var(--🌐color-surface);
+  --t-dialog\color: var(--🌐color-on-surface);
+  --t-dialog\borderTopColor: var(--🌐color-primary, transparent);
+  --t-dialog\borderTopWidth: var(--🌐spacing);
+  --t-dialog\borderRadius: calc(var(--t-dialog\borderTopWidth) / 2);
+  --t-dialog\filter: var(--🌐filter-shadow);
+  --t-dialog\padding: 0;
+  --t-dialog\width: calc(100% - 2 * var(--🌐spacing--sm));
+  --t-dialog__header\transform: scaleY(1);
+  --t-dialog__content\padding: var(--🌐spacing) var(--🌐spacing--sm) var(--🌐spacing--lg);
+}
+
+/* Modifiers */
+.t-dialog.-hideHeader {
+  --t-dialog__header\transform: scaleY(0);
+}
+
+/* Layout and design */
+.t-dialog {
+  background-color: var(--t-dialog\backgroundColor);
+  border: 0;
+  border-radius: var(--t-dialog\borderRadius);
+  border-top: solid var(--t-dialog\borderTopWidth) var(--t-dialog\borderTopColor);
+  color: var(--t-dialog\color);
+  filter: var(--t-dialog\filter);
+  padding: var(--t-dialog\padding);
+  position: relative;
+  width: var(--t-dialog\width);
+}
+  .t-dialog__header {
+    display: flex;
+    justify-content: flex-end;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform-origin: top;
+    transform: var(--t-dialog__header\transform);
+    transition: transform var(--🌐time-transition);
+    width: 100%;
+  }
+  .t-dialog__content {
+    padding: var(--t-dialog__content\padding);
+  }
+  .t-dialog::backdrop {
+    /* Backdrops don't accept css custom properties :( */
+    backdrop-filter: blur(2px) grayscale(1);
+    background-color: #0006;
+  }

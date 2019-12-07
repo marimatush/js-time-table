@@ -1,0 +1,29 @@
+/*
+Page-layout
+
+The page-layout gives the structure for the entire application with a named grid and
+is divided into header, content and footer
+  -the header will span an height given by the content
+  -the content will fill up the remaining height to 100 % of the viewport height
+
+Markup:
+<div class="t-page">
+  <p class="t-paragraph">The "place to be" for one header and one main content-block.</p>
+</div>
+
+Styleguide Page.Layout
+*/
+
+/* Setup */
+.t-page {
+  /* So far not flexible setup needed */
+}
+
+/* Layout and design */
+.t-page {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-areas: "header" "navbar" "content" "footer";
+  grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+}

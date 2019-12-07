@@ -1,0 +1,52 @@
+/*
+Page Header
+
+The header contains:
+  -the brand logo
+  -the headline of the application
+  -a slot for some buttons
+
+Styleguide Page.Header
+*/
+
+/* Setup */
+.t-header {
+  --header\padding: var(--🌐spacing) calc(var(--🌐spacing) - var(--🌐spacing--xs)) 0 var(--🌐spacing);
+  --header\logoHeight: var(--🌐fontSize--xl);
+}
+
+/* Layout and design*/
+.t-header {
+  align-items: start;
+  background-color: var(--🌐color-surface);
+  display: grid;
+  grid-area: header;
+  grid-gap: var(--🌐spacing--sm);
+  grid-template-areas: "logo navbar" "title navbar";
+  grid-template-columns: 1fr auto;
+  filter: var(--🌐filter-shadow);
+  padding: var(--header\padding);
+  border-top: solid var(--🌐spacing--sm) var(--🌐color-primary, transparent);
+}
+
+.t-header__logo {
+  grid-area: logo;
+  height: var(--header\logoHeight);
+  width: calc(5 * var(--header\logoHeight));
+}
+
+.t-header__title {
+  color: var(--🌐color-text--decent);
+  font-size: var(--🌐fontSize--sm);
+  font-weight: var(--🌐fontWeight);
+  grid-area: title;
+  line-height: var(--🌐fontSize--sm-lineHeight);
+  margin-bottom: var(--🌐spacing--xs);
+}
+
+.t-header__slot-buttons {
+  display: grid;
+  grid-area: navbar;
+  grid-auto-flow: column;
+  grid-gap: var(--🌐spacing--sm);
+}

@@ -1,0 +1,27 @@
+/*
+Navbar
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+
+Markup:
+<nav class="t-navbar">
+  Item
+  Item
+  Item
+</nav>
+Styleguide Page.Navbar
+*/
+
+/* Setup */
+.t-navbar {
+  --navbar\padding: var(--🌐spacing--xs);
+}
+/* Layout and design */
+.t-navbar {
+  background: #eee;
+  display: grid; /* for height filling scrollable */
+  filter: var(--🌐filter-shadow);
+  grid-area: navbar;
+  grid-auto-flow: column;
+  padding: var(--navbar\padding);
+}

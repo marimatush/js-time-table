@@ -1,0 +1,110 @@
+/*
+Button
+
+Style any button or link as a button. Complex modifiers make them quite flexible.
+
+
+Markup:
+<button class="t-button {{modifier__class}}">
+  <div class"t-button__inner">
+    <svg class="t-button__icon" width="1em" height="1em">
+      <path d="m0,0h100v100h-100z" fill="currentcolor"/>
+    </svg>
+    <span class"t-button__text">Click Me</span>
+  </div>
+</button>
+
+:active                 - highlight the button on tap
+.-sm          - a smaller version of the button
+.-vertical    - let inner elements flow vertically
+.-primary     - primary color scheme
+.-decent      - subtile color scheme
+.-blind       - no backgrounds, no borders
+
+Styleguide Components.Button
+*/
+
+/* Setup */
+.t-button {
+  --t-button\main-color: var(--🌐color-on-surface);
+  --t-button\with-main-color: var(--🌐color-surface);
+  --t-button\background-color: var(--t-button\main-color);
+  --t-button\border-width: 1px;
+  --t-button\border-color: var(--🌐color-surface-separator);
+  --t-button\border-radius: 4px;
+  --t-button\color: var(--t-button\with-main-color);
+  --t-button\filter: var(--🌐filter-shadow);
+  --t-button\fontSize: var(--🌐fontSize);
+  --t-button\icon-size: var(--🌐fontSize--xl);
+  --t-button\lineHeight: var(--🌐fontSize);
+  --t-button\justify: center;
+  --t-button\letter-spacing: var(--🌐letter-spacing--lg);
+  --t-button\opacity: : 1;
+  --t-button\padding: var(--🌐spacing--sm) var(--🌐spacing);
+  --t-button__inner\flow: column;
+  --t-button__inner\element-spacing: var(--🌐spacing--sm);
+}
+
+/* Pseudo-classes, pseudo-elements and modifiers */
+.t-button:active {
+  --t-button\filter: var(--🌐filter-shadow--elevation) var(--🌐filter-darken) var(--🌐filter-darken);
+}
+.t-button.-sm {
+  --t-button\fontSize: var(--🌐fontSize--sm);
+  --t-button\padding: var(--🌐spacing--xs) var(--🌐spacing--sm);
+  --t-button__inner\element-spacing: var(--🌐spacing--xs);
+}
+.t-button.-vertical {
+  --t-button__inner\flow: row;
+}
+.t-button.-primary {
+  --t-button\border-width: 0;
+  --t-button\main-color: var(--🌐color-surface--primary);
+  --t-button\with-main-color: var(--🌐color-on-surface--primary);
+}
+.t-button.-decent {
+  --t-button\main-color: var(--🌐color-surface-separator);
+  --t-button\with-main-color: var(--🌐color-surface);
+}
+.t-button.-blind {
+  --t-button\border-width: 0;
+  --t-button\background-color: transparent;
+  --t-button\color: var(--t-button\main-color);
+  --t-button\filter: 0;
+}
+.t-button.-blind:active {
+  --t-button\filter:  var(--🌐filter-darken);
+  box-shadow: none;
+}
+
+/* Layout and design */
+.t-button {
+  background-color: var(--t-button\background-color);
+  box-shadow: 0 0 0 var(--t-button\border-width) var(--t-button\border-color);
+  border-radius: var(--t-button\border-radius);
+  color: var(--t-button\color);
+  display: flex;
+  filter: var(--t-button\filter);
+  opacity: var(--t-button\opacity);
+  outline: 0;
+  padding: var(--t-button\padding);
+  pointer-events: all;
+  text-decoration: none;
+  transition: filter var(--🌐time-transition);
+}
+  .t-button__inner {
+    align-items: center;
+    display: grid;
+    font-size: var(--t-button\fontSize);
+    grid-auto-flow: var(--t-button__inner\flow);
+    grid-gap: var(--t-button__inner\element-spacing);
+    justify-items : var(--t-button\justify);
+    letter-spacing: var(--t-button\letter-spacing);
+    line-height: var(--t-button\icon-size);
+    margin: auto;
+  }
+
+  .t-button__icon {
+    height: var(--t-button\icon-size);
+    width: var(--t-button\icon-size);
+  }

@@ -1,0 +1,43 @@
+/*
+Content
+
+The content layout is an heavily customized grid with a couple of properties for scrollability.
+It comes with one header, one scroll-container and one absolute positioned footer
+
+Markup:
+<main class="t-content">
+  <header class="t-content__header">
+    <h2 class="t-heading">Header</h2>
+  </header>
+  <section class="t-content__scrollable">
+    (Scrollable) Content
+  </section>
+  <footer class="t-content__footer">
+    Footer
+  </footer>
+</main>
+
+Styleguide Page.Content
+*/
+
+/* Setup */
+.t-content {
+  --page\padding: 0;
+  --page\margin: 0;
+}
+
+/* Layout and design */
+.t-content {
+  display: grid; /* for height filling scrollable */
+  grid-area: content;
+  margin: var(--page\margin);
+  overflow: hidden; /* for height filling scrollable */
+  padding: var(--page\padding);
+  position: relative; /* for fixed content__footer position*/
+}
+  .t-content__scrollable {
+    align-content: space-between;
+    display: grid;
+    overflow-y: auto;
+    padding: 0;
+  }

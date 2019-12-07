@@ -1,0 +1,93 @@
+/*
+Table
+
+A simple table with even-odd row highlighting. No class. No modifier.
+
+Markup:
+<table>
+  <caption>Headline</caption>
+  <thead>
+    <tr>
+      <th>Column Heading 1</th>
+      <th>Column Heading 2</th>
+      <th>Column Heading 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Row 1, Column 1</td>
+      <td>Row 1, Column 2</td>
+      <td>Row 1, Column 3</td>
+    </tr>
+    <tr>
+      <td>Row 2, Column 1</td>
+      <td>Row 2, Column 2</td>
+      <td>Row 2, Column 3</td>
+    </tr>
+    <tr>
+      <td>Row 3, Column 1</td>
+      <td>Row 3, Column 2</td>
+      <td>Row 3, Column 3</td>
+    </tr>
+    <tr>
+      <td>Row 4, Column 1</td>
+      <td>Row 4, Column 2</td>
+      <td>Row 4, Column 3</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan="2">Footer Column 1 / Row Header</th>
+      <td>Footer Column 3</td>
+    </tr>
+  </tfoot>
+</table>
+
+Styleguide Components.Table
+*/
+/* Setup */
+table {
+  --table\borderColor: var(--🌐color-text--decent, transparent);
+  --table\borderWidth: 1px;
+  --table\fontSize: var(--🌐fontSize--sm);
+  --table\width: 100%;
+  --table__tr\highlightColor: var(--🌐color-background--highlight);
+  --table__td\padding: var(--🌐spacing--sm);
+}
+
+/* Layout and design */
+table {
+  border-collapse: collapse;
+  font-size: var(--table\fontSize);
+  width: var(--table\width);
+}
+  caption {
+    font-size: var(--🌐fontSize--xl);
+    font-weight: var(--🌐fontWeight);
+    line-height: : var(--🌐fontSize--xl-lineHeight);
+    text-align: left;
+    padding: var(--🌐spacing--sm);
+  }
+
+  th {
+    font-size: var(--🌐fontSize--xs);
+    font-weight: var(--🌐fontWeight);
+    letter-spacing: var(--🌐letterSpacing--lg);
+    line-height: var(--🌐fontSize--xs-lineHeight);
+  }
+
+  tr { border-bottom: solid var(--table\borderWidth) var(--table\borderColor); }
+    tr:first-child { border-top: solid var(--table\borderWidth) var(--table\borderColor); }
+    tr:nth-child(even) { background-color: var(--table__tr\highlightColor); }
+
+  td, th {
+    border-right: solid var(--table\borderWidth) var(--table\borderColor);
+    padding: var(--table__td\padding);
+    text-align: center;
+  }
+    td:last-child,
+    th:last-child { border-right: 0;}
+
+  tfoot th {
+    text-align: end;
+  }

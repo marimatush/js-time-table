@@ -1,0 +1,4 @@
+.t-header {
+  --header\padding: var(--🌐spacing) 20vw;
+  --header\logoHeight: var(--🌐fontSize--xxl);
+}
