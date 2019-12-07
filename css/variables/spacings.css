@@ -1,0 +1,17 @@
+/*
+Spacings
+
+The spacing unit is based on 1rem - so the font-size of the body
+
+No styleguide reference.
+*/
+:root {
+  --unit-spacing: 1rem;
+  --🌐spacing: var(--unit-spacing);
+  --🌐spacing--xxs: calc(var(--unit-spacing) / 16);
+  --🌐spacing--xs: calc(var(--unit-spacing) / 4);
+  --🌐spacing--sm: calc(var(--unit-spacing) / 2);
+  --🌐spacing--lg: calc(var(--unit-spacing) * 1.5);
+  --🌐spacing--xl: calc(var(--unit-spacing) * 2);
+  --🌐spacing--xxl: calc(var(--unit-spacing) * 4);
+}

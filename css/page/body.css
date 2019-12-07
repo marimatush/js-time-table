@@ -1,0 +1,30 @@
+/*
+Body
+
+The body gives the main font-settings and the background-color.
+Besides the page-container it contains hidden dialog modals and the icons in a single svg-sprite.
+
+Markup:
+
+<body class="t-body">
+  <p class="t-paragraph">Place the page-container, dialogs and svg-icons here.</p>
+</body>
+
+Styleguide Page.Body
+*/
+
+/* Settings */
+.t-body {
+  --body\background: var(--🌐color-background);
+  --body\color: var(--🌐color-text);
+  --body\font: var(--🌐fontSize)/var(--🌐fontSize\lineHeight) var(--🌐font-family);
+  --body\height: 100vh;
+}
+
+/* Layout and design */
+.t-body {
+  background-color: var(--body\background);
+  color: var(--body\color);
+  font: var(--body\font);
+  height: var(--body\height);
+}

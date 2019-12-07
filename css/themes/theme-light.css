@@ -1,0 +1,41 @@
+/*
+Light Theme
+
+This theme is set by default.
+Themes only define these standard colors for the entire app:
+  -background
+  -surface
+    -on-surface
+    -surface--active
+    -surface--separator
+  -surface--primary
+    -on-surface
+    -surface--active
+    -surface--separator
+
+No styleguide reference.
+*/
+:root {
+ --🌐color-background: var(--🎨transparent-black--bright);
+ --🌐color-background--highlight: var(--🎨transparent-black--bright);
+
+ --🌐color-surface: var(--🎨white);
+ --🌐color-on-surface: var(--🎨black);
+ --🌐color-surface--active: var(--🎨gray--light);
+ --🌐color-surface-separator: var(--🎨gray);
+
+ --🌐color-surface--primary: var(--🎨primary);
+ --🌐color-on-surface--primary: var(--🎨white);
+
+ --🌐color-surface--secondary: var(--🎨secondary);
+ --🌐color-on-surface--secondary: var(--🎨white);
+
+ --🌐color-text: var(--🎨black);
+ --🌐color-text--decent: var(--🎨gray);
+
+ --🌐color-primary: var(--🎨primary);
+ --🌐color-secondary: var(--🎨secondary);
+ --🌐color-warning: var(--🎨warning);
+ --🌐color-success: var(--🎨success);
+ --🌐color-hint: var(--🎨hint);
+}

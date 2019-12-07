@@ -1,0 +1,22 @@
+/*
+Typo Setup
+
+Not too much for this application.
+Modifiers for xl, md... might be added when needed
+
+Markup:
+<h2 class="t-heading">Heading</h2>
+<p class="t-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim...</p>
+<p class="t-paragraph">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim...</p>
+
+Styleguide Typography
+*/
+.t-heading {
+  font-size: var(--🌐fontSize--xl);
+  font-weight: var(--🌐fontWeight);
+  line-height: : var(--🌐fontSize--xl-lineHeight);
+}
+
+.t-paragraph {
+  margin: 0 0 var(--🌐spacing--xs);
+}

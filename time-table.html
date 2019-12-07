@@ -1,88 +1,266 @@
-<!doctype html>
-<html class="tt-app">
-<head>
-  <meta charset="UTF-8">
-  <title>Time Table for Spexy Students</title>
-  <meta name=description content="Time Table is a small application, that makes it easy to keep track of working times.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="css/dialog-polyfill.css">
-  <link rel="stylesheet" type="text/css" href="css/time-table.css">
-</head>
-<body class="tt-body">
-  <main class="tt-page">
-    <header class="tt-c-header">
-      <h1 class="tt-c-header__title">Spex Time Sheet</h1>
-    </header>
-
-    <section class="tt-section">
-      <form class="tt-c-userData">
-        <div class="tt-c-userData__inputLabelGroup">
-          <input class="tt-c-userData__input" type="text" id="TTNameSurname" placeholder="Name Surname" required>
-          <label class="tt-c-userData__label" for="TTNameSurname">Name Surname</label>
-        </div>
-        <div class="tt-c-userData__inputLabelGroup">
-          <input class="tt-c-userData__input" type="number" placeholder="9.00" min="9.00" max="30.00" step=".50" id="TTHourlyWage" required>
-          <label class="tt-c-userData__label" for="TTHourlyWage">€ / h</label>
-        </div>
-      </form>
-    </section>
-
-    <section class="tt-section tt-section--scrollable">
-      <div class="tt-c-scrollContainer"></div>
-    </section>
-
-    <section class="tt-section tt-section--highlight">
-      <div class="tt-c-sum">
-        <output id="TTHours">00.00 Hours</output> = <strong><output id="TTMonthlySalary">00.00 €</output></strong>
-      </div>
-    </section>
-
-    <footer class="tt-section tt-section--centerText">
-      <div class="tt-grid tt-grid--horizontal">
-        <button class="tt-button" id="TTResetButton">↺</button>
-        <button class="tt-button tt-button--opendialog">＋</button>
-        <span>⎙</span>
-      </div>
-    </footer>
-  </main>
-
-  <dialog class="tt-dialog">
-    <form method="dialog">
-      <header>
-        <h2 class="tt-heading">Your Day</h2>
-        <p class="tt-paragraph">Please fill in a day, your working hours and break time.</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Time Sheet</title>
+    <meta
+      name="description"
+      content="Student Time Sheet is a small browser application, that makes it easy to keep track of working times. It's created by working students for working students at Mister Spex."
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="css/variables/font.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/variables/spacings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/variables/icons.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/reset.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/body.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/layout.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/header.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/navbar.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/content.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/page/footer.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/typography/typography.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/components/button.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="css/components/table.css" media="screen" />
+    <script src="js/polyfills.js" defer></script>
+    <script src="js/app.js" defer></script>
+    <script src="js/deferredStyling.js" defer></script>
+  </head>
+  <body class="t-body">
+    <div class="t-page">
+      <header class="t-header">
+        <svg
+          class="t-header__logo"
+          alt="Mister Spex - Logo"
+          viewBox="0 0 500 100"
+          preserveAspectRatio="xMidYMid meet"
+          id="logo"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <title>Mister Spex Time Sheet - Logo</title>
+          <mask id="logo__mask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+            <path fill="white" d="m0,10 c0,-8 30,-10 50.5,-10 v50.5 h-50.5 z" id="logo__shape"></path>
+            <use href="#logo__shape" style="transform-origin: 50px 50px; transform: scale(-1, 1);"></use>
+            <use href="#logo__shape" style="transform-origin: 50px 50px; transform: scale(-1, -1);"></use>
+            <use href="#logo__shape" style="transform-origin: 50px 50px; transform: scale(1, -1);"></use>
+            <g id="logo__path">
+              <path stroke="black" stroke-width="6px" d="m30,31 l20,13 l17,21.5" fill="transparent"></path>
+              <path stroke="black" stroke-width="4px" d="m-5,27 c82,-8 54,62 110,44" fill="transparent"></path>
+              <path stroke="black" stroke-width="4px" d="m-5,28 c62,-8 57,62 110,43" fill="transparent"></path>
+            </g>
+            <use href="#logo__path" style="transform-origin: 50px 50px; transform: scale(-1, 1);"></use>
+            <path d="m39,34.5 q11.5,3 22,0 q-3,11 0,22 q-11.5,-3 -22,0 q3,-11 0,-22z" id="logo__helper"></path>
+          </mask>
+          <path d="m0,0h100v100h-100z" mask="url(#logo__mask)" fill="currentColor"></path>
+          <text x="120" y="74" alt="Time Sheet" font-size="68px" style="font-family: var(--🌐font-family); fill: currentColor; text-transform: uppercase">
+            Time Sheet
+          </text>
+        </svg>
+        <h1 class="t-header__title">Spex Time Sheet</h1>
+        <nav class="t-header__slot-buttons">
+          <button class="t-button -sm -blind -primary -vertical" id="TTOpenTimeDialog">
+            <div class="t-button__inner">
+              <svg class="t-button__icon">
+                <title>Add Entry</title>
+                <use href="#icon_plus"></use>
+              </svg>
+              <span class="t-button__text">Add</span>
+            </div>
+          </button>
+          <button class="t-button -sm -blind -decent -vertical" onclick="document.querySelectorAll('dialog')[1].showModal()">
+            <div class="t-button__inner">
+              <svg class="t-button__icon">
+                <title>Edit Profile</title>
+                <use href="#icon_customer"></use>
+              </svg>
+              <span class="t-button__text">Profile</span>
+            </div>
+          </button>
+        </nav>
       </header>
-      <section class="tt-grid tt-grid--vertical">
-        <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
-          <label class="tt-label" for="TTDay">Day</label>
-          <input class="tt-input" type="date" id="TTDay" name="TTDay" required>
-        </div>
-        <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
-          <label class="tt-label" for="TTStartTime">Start Time</label>
-          <input class="tt-input" type="time" id="TTStartTime" name="TTStartTime" required>
-        </div>
-        <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
-          <label class="tt-label" for="TTEndTime">End Time</label>
-          <input class="tt-input" type="time" id="TTEndTime" name="TTEndTime" required>
-        </div>
-        <div class="tt-grid tt-grid--horizontal tt-grid--spacingTight">
-          <label class="tt-label" for="TTBreak">Break (hh:mm)</label>
-          <input class="tt-input" type="time" id="TTBreak" name="TTBreak" required>
-        </div>
-      </section>
-      <footer class="tt-grid tt-grid--horizontal">
-        <button class="tt-button tt-button--closedialog" type="button" value="cancel">Cancel</button>
-        <button class="tt-button tt-button--add" type="submit" value="add">Add to Sheet</button>
-      </footer>
-    </form>
-  </dialog>
-
-   <!-- Polyfill for native dialog element -->
-  <script src="js/dialog-polyfill.js"></script>
-  <script>
-    var dialog = document.querySelector('dialog');
-    dialogPolyfill.registerDialog(dialog);
-  </script>
-  <script src="js/app.js"></script>
-</body>
+      <nav class="t-navbar">
+        <button class="t-button -sm -blind -decent" id="clearButton">
+          <div class="t-button__inner">
+            <svg class="t-button__icon">
+              <title>Clear all</title>
+              <use href="#icon_trash"></use>
+            </svg>
+          </div>
+        </button>
+        <button class="t-button -sm -blind -decent">
+          <div class="t-button__inner">
+            <svg class="t-button__icon">
+              <title>Download</title>
+              <use href="#icon_download"></use>
+            </svg>
+          </div>
+        </button>
+        <button class="t-button -sm -blind -decent">
+          <div class="t-button__inner">
+            <svg class="t-button__icon">
+              <title>Upload</title>
+              <use href="#icon_upload"></use>
+            </svg>
+          </div>
+        </button>
+        <button class="t-button -sm -blind -decent" id="TTPrintButton">
+          <div class="t-button__inner">
+            <svg class="t-button__icon">
+              <title>Print</title>
+              <use href="#icon_print"></use>
+            </svg>
+          </div>
+        </button>
+      </nav>
+      <main class="t-content">
+        <section class="t-content__scrollable">
+          <table class="t-table">
+            <caption>
+              Working Hours
+            </caption>
+            <thead>
+              <tr>
+                <th width="62%">Day</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Break</th>
+                <th width="38%">Hours</th>
+              </tr>
+            </thead>
+            <tfoot>
+              <tr>
+                <th colspan="4">Total hours</th>
+                <td colspan="1">
+                  <output id="TTHours">00.00 Hours</output>
+                </td>
+              </tr>
+            </tfoot>
+            <tbody></tbody>
+          </table>
+        </section>
+      </main>
+      <footer class="t-footer" id="TTMonthlySalary">00.00 €</footer>
+    </div>
+    <!-- Time Table Form -->
+    <dialog class="t-dialog -hideHeader">
+      <header class="t-dialog__header">
+        <button class="t-button -sm -blind -decent" id="TTRemoveDayButton">
+          <div class="t-button__inner">
+            <span class="t-button__text">Delete</span>
+            <svg class="t-button__icon" width="1em" height="1em">
+              <use href="#icon_trash"></use>
+            </svg>
+          </div>
+        </button>
+      </header>
+      <div class="t-dialog__content">
+        <form class="t-form" method="dialog">
+          <header class="t-form__header">
+            <h2 class="t-heading">Your Day</h2>
+            <p class="t-paragraph">Please fill in a day, your working hours and break time.</p>
+          </header>
+          <div class="t-form__inputLabelGroup">
+            <input class="t-form__input" type="date" id="TTDay" name="TTDay" required />
+            <label class="t-form__label" for="TTDay" data-validity-message="Please fill in the date">Day</label>
+          </div>
+          <div class="t-form__inputLabelGroup">
+            <input class="t-form__input" type="time" id="TTStartTime" name="TTStartTime" required />
+            <label class="t-form__label" for="TTStartTime" data-validity-message="Please fill in the start time">Start Time</label>
+          </div>
+          <div class="t-form__inputLabelGroup">
+            <input class="t-form__input" type="time" id="TTEndTime" name="TTEndTime" required />
+            <label class="t-form__label" for="TTEndTime" data-validity-message="Please fill in the end time">End Time</label>
+          </div>
+          <div class="t-form__inputLabelGroup">
+            <input class="t-form__input" type="number" id="TTBreak" name="TTBreak" min="0" steps="1" value="30" required />
+            <label class="t-form__label" for="TTBreak" data-validity-message="Please fill in the break time">Break (minutes)</label>
+          </div>
+          <section class="t-form__slot-buttons">
+            <button class="t-button -blind -decent" id="TTCloseTimeDialog" type="button" value="Cancel">
+              <span class="t-button__inner">Cancel</span>
+            </button>
+            <button class="t-button -primary" id="TTAddTime" type="submit" value="add">
+              <span class="t-button__inner">Add to Sheet</span>
+            </button>
+          </section>
+        </form>
+      </div>
+    </dialog>
+    <!-- Account Settings Form -->
+    <dialog class="t-dialog">
+      <div class="t-dialog__content">
+        <form class="t-form" method="dialog">
+          <header class="t-form__header">
+            <h2 class="t-heading">Account Settings</h2>
+            <p class="t-paragraph">Please fill in your full name and salary.</p>
+          </header>
+          <div class="t-form__inputLabelGroup">
+            <input class="t-form__input" type="text" id="TTNameSurname" placeholder="Name Surname" spellcheck="false" autocomplete="name" required />
+            <label class="t-form__label" for="TTNameSurname" data-validity-message="Please fill in">Your Full Name</label>
+          </div>
+          <div class="t-form__inputLabelGroup">
+            <input class="t-form__input" type="number" placeholder="9.00" min="9.00" max="30.00" step=".50" id="TTHourlyWage" required />
+            <label class="t-form__label" for="TTHourlyWage" data-validity-message="Please enter a number between 9.0 and 30.0"
+              >You Hourly Wage (€ per hour)</label
+            >
+          </div>
+          <section class="t-form__slot-buttons">
+            <button class="t-button -blind -decent" type="button" onclick="this.closest('dialog').close();">
+              <span class="t-button__inner">Cancel</span>
+            </button>
+            <button class="t-button -primary" type="submit">
+              <span class="t-button__inner">Save</span>
+            </button>
+          </section>
+        </form>
+      </div>
+    </dialog>
+    <!-- Icon Symbols -->
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="width: 0; height: 0; position: absolute; bottom: 0; right: 0;">
+      <style>
+        symbol {
+          fill-rule: evenodd;
+          overflow: visible;
+        }
+        symbol path {
+          vector-effect: non-scaling-stroke;
+          stroke-linejoin: round;
+          stroke-linecap: round;
+          stroke-width: var(--🌐icon-stroke-width);
+          stroke: var(--🌐icon-stroke-color);
+          fill: var(--🌐icon-fill-color);
+          fill-opacity: var(--🌐icon-fill-opacity);
+          transition: stroke-width var(--🌐time-transition), fill-opacity var(--🌐time-transition);
+        }
+      </style>
+      <symbol viewBox="-10 -10 120 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="icon_customer">
+        <title>Customer Icon</title>
+        <path d="M 47.5 25 m -20, 0 a20,20 0 1,0 40,0 a 20,20 0 1,0 -40,0"></path>
+        <path d="M 0 100 C0,50 100,50 100,100z"></path>
+      </symbol>
+      <symbol viewBox="-10 -10 120 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="icon_plus">
+        <title>Plus Icon</title>
+        <path d="m50 0 v100 m-50 -50h100"></path>
+      </symbol>
+      <symbol viewBox="-10 -10 120 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="icon_trash">
+        <title>Trash Icon</title>
+        <path d="m22,20 h56 l-2,80 h-52z"></path>
+        <path d="m10,20 h80 h-30 v-20 h-20 v20 z"></path>
+        <path d="m42,35 v50"></path>
+        <path d="m58,35 v50"></path>
+      </symbol>
+      <symbol viewBox="-10 -10 120 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="icon_download">
+        <title>Download Icon</title>
+        <path d="M30,70 h-30 v-50 h100 v50 h-30 M50,40 v60 m-20,-15 l20,15 20,-15"></path>
+      </symbol>
+      <symbol viewBox="-10 -10 120 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="icon_upload">
+        <title>Upload Icon</title>
+        <path d="M30,70 h-30 v-50 h100 v50 h-30 M50,40 v60 m-20,-50 l20,-15 20,15"></path>
+      </symbol>
+      <symbol viewBox="-10 -10 120 120" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" id="icon_print">
+        <title>Print Icon</title>
+        <path d="m0,50 h15 m70,0 h15 v50 h-100v-50 M15,10 h70 v60 h-70z M30,25 h20 M30,40 h40"></path>
+      </symbol>
+    </svg>
+  </body>
 </html>

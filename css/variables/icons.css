@@ -1,0 +1,14 @@
+/*
+Icon Settings
+
+SVG Symbols are used for all icons. As icons need high flexibility, the global
+settings might be overwritten depending on the use-case.
+
+No styleguide reference.
+*/
+:root {
+  --🌐icon-stroke-width: 1px;
+  --🌐icon-stroke-color: currentColor;
+  --🌐icon-fill-color: currentColor;
+  --🌐icon-fill-opacity: 0;
+}

@@ -1,0 +1,56 @@
+/*
+Palette
+
+Every color property that may used for theming starts with 🎨
+- --hue, --saturation & --lightness describe the properties of the main brand color
+
+No styleguide reference.
+*/
+:root {
+  --hue: 116;
+  --saturation: 96%;
+  --lightness: 34%;
+  --hue--secondary: calc(var(--hue) + 90);
+  --hue--warning: 10;
+  --hue--success: calc(var(--hue--warning) + 90);
+  --hue--hint: calc(var(--hue--warning) + 180);
+
+  --black: 0, 0%, 0%;
+  --gray-lightness: 62;
+  --gray-lightness--dark: 25;
+  --gray-lightness--darkest: 5;
+  --gray-lightness--medium: 86;
+  --gray-lightness--light: 92;
+  --gray-lightness--bright: 96;
+
+  --alpha: calc((100 - var(--gray-lightness)) / 100);
+  --alpha--dark: calc((100 - var(--gray-lightness--dark)) / 100);
+  --alpha--darkest: calc((100 - var(--gray-lightness--darkest)) / 100);
+  --alpha--medium: calc((100 - var(--gray-lightness--medium)) / 100);
+  --alpha--light: calc((100 - var(--gray-lightness--light)) / 100);
+  --alpha--bright: calc((100 - var(--gray-lightness--bright)) / 100);
+
+  --🎨black: hsl(var(--black));
+  --🎨transparent-black: hsla(var(--black), var(--alpha));
+  --🎨transparent-black--darkest: hsla(var(--black), var(--alpha--darkest));
+  --🎨transparent-black--dark: hsla(var(--black), var(--alpha--dark));
+  --🎨transparent-black--medium: hsla(var(--black), var(--alpha--medium));
+  --🎨transparent-black--light: hsla(var(--black), var(--alpha--light));
+  --🎨transparent-black--bright: hsla(var(--black), var(--alpha--bright));
+
+  --🎨gray: hsl(0, 0%, calc(1% * var(--gray-lightness)));
+  --🎨gray--darkest: hsl(0, 0%, calc(1% * var(--gray-lightness--darkest)));
+  --🎨gray--dark: hsl(0, 0%, calc(1% * var(--gray-lightness--dark)));
+  --🎨gray--medium: hsl(0, 0%, calc(1% * var(--gray-lightness--medium)));
+  --🎨gray--light: hsl(0, 0%, calc(1% * var(--gray-lightness--light)));
+  --🎨gray--bright: hsl(0, 0%, calc(1% * var(--gray-lightness--bright)));
+
+  --🎨white: hsl(0, 0%, 100%);
+
+  --🎨primary: hsl(var(--hue), var(--saturation), var(--lightness));
+  --🎨secondary: hsl(var(--hue--secondary), var(--saturation), var(--lightness));
+
+  --🎨warning: hsl(var(--hue--warning), var(--saturation), var(--lightness));
+  --🎨success: hsl(var(--hue--success), var(--saturation), var(--lightness));
+  --🎨hint: hsl(var(--hue--hint), var(--saturation), var(--lightness));
+}

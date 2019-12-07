@@ -1,0 +1,32 @@
+/*
+Font Settings
+
+Every font-size has a complimentary line-height
+e.g. --🌐fontSize--xs matches --🌐fontSize--xs-lineHeight
+
+No styleguide reference.
+*/
+ :root {
+   --unit-fontSize: 16px;
+
+   --🌐font-family: 'Roboto', Arial, Helvetica, sans-serif;
+
+   --🌐fontSize: var(--unit-fontSize);
+   --🌐fontSize--xs: calc(var(--unit-fontSize) * 0.75);
+   --🌐fontSize--sm: calc(var(--unit-fontSize) / 1.14);
+   --🌐fontSize--lg: calc(var(--unit-fontSize) * 1.25);
+   --🌐fontSize--xl: calc(var(--unit-fontSize) * 1.5);
+   --🌐fontSize--xxl: calc(var(--unit-fontSize) * 2.5);
+   --🌐fontSize\lineHeight: 1.5;
+   --🌐fontSize--xs-lineHeight: 1.666;
+   --🌐fontSize--sm-lineHeight: 1.428;
+   --🌐fontSize--lg-lineHeight: 1.4;
+   --🌐fontSize--xl-lineHeight: 3.5;
+   --🌐fontSize--xxl-lineHeight:  1.5;
+
+   --🌐fontWeight: 400;
+   --🌐fontWeight--bold: 700;
+
+   --🌐letterSpacing: .2px;
+   --🌐letterSpacing--lg: .5px;
+}

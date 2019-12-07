@@ -1,0 +1,26 @@
+/*
+Footer
+
+A big block for the main output result of the application.
+Designed for short text content.
+
+Markup:
+<footer class="t-footer">Lorem 200 €</footer>
+
+Styleguide Page.Footer
+*/
+/* Setup */
+.t-footer {
+  --t-footer\text-align: right;
+}
+
+/* Layout and design */
+.t-footer {
+  grid-area: footer;
+  text-align: var(--t-footer\text-align);
+  padding: var(--🌐spacing--sm);
+  font-weight: var(--🌐fontWeight--bold);
+  background: var(--🌐color-surface--primary);
+  color: var(--🌐color-on-surface--primary);
+  letter-spacing: var( --🌐letterSpacing--lg);
+}

@@ -1,0 +1,128 @@
+/*
+ Form
+
+A form is one component that may contain a header, some label-input-groups and some buttons.
+Fairly simple.
+
+Markup:
+<form class="t-form" method="dialog">
+  <header class="t-form__header">
+    <h2 class="t-heading">Example Form</h2>
+  </header>
+  <div class="t-form__inputLabelGroup">
+    <input class="t-form__input" type="text" id="TT_FORM__INPUT_EXAMPLE1" placeholder="Lorem ipsum" spellcheck="false" required="">
+    <label class="t-form__label" for="TT_FORM__INPUT_EXAMPLE1" data-validity-message="Please fill in something">Some text</label>
+  </div>
+  <div class="t-form__inputLabelGroup">
+    <input class="t-form__input" type="number" placeholder="9.00" min="9.00" max="30.00" step=".50" id="TT_FORM__INPUT_EXAMPLE2" required="">
+    <label class="t-form__label" for="TT_FORM__INPUT_EXAMPLE2" data-validity-message="Please enter a number between 9.0 and 30.0">Some Number between 9 and 30</label>
+  </div>
+  <section class="t-form__slot-buttons">
+    <button class="t-button t-button--blind t-button--decent" type="reset">
+      <span class="t-button__inner">Reset</span>
+    </button>
+    <button class="t-button t-button--secondary" type="submit">
+      <span class="t-button__inner">Submit</span>
+    </button>
+  </section>
+</form>
+
+Styleguide Components.Form
+*/
+
+/* Setup */
+.t-form {
+  --t-form\elementGap: var(--🌐spacing);
+  --t-form__inputLabelGroup\maxWidth: 100%;
+  --t-form__input\background: var(--🌐color-surface);
+  --t-form__input\border-width: 1px;
+  --t-form__input\border-color: var(--🌐color-surface-separator);
+  --t-form__input\border-radius: 4px;
+  --t-form__input\color: var(--🌐color-on-surface);
+  --t-form__input\padding: var(--🌐spacing--sm);
+  --t-form__input\textAlign: start;
+  --t-form__label\color: var(--🌐color-text--decent);
+  --t-form__label\fontSize: var(--🌐fontSize--sm);
+  --t-form__label\padding: 0 var(--🌐spacing--xs) var(--🌐spacing--xxs);
+  --t-form__label\textAlign: var(--t-form__input\textAlign);
+}
+
+/* Pseudo-classes, pseudo-elements and modifiers*/
+.t-form__input + .t-form__label::after {
+  --t-form__validationMessage\color: transparent;
+  --t-form__validationMessage\fontSize: var(--🌐fontSize--sm);
+  --t-form__validationMessage\lineHeight: var(--🌐fontSize--sm-lineHeight);
+  --t-form__validationMessage\opacity: 1;
+  --t-form__validationMessage\positionBottom: -1.8em;
+  --t-form__validationMessage\positionRight: var(--🌐spacing--xs);
+  --t-form__validationMessage\transition: opacity var(--🌐time-transition) var(--🌐time-freeze);
+}
+.t-form__input:valid + .t-form__label::after {
+  --t-form__validationMessage\color: var(--🌐color-success);
+  --t-form__validationMessage\opacity: 0;
+}
+.t-form__input:invalid + .t-form__label::after {
+  --t-form__validationMessage\color: var(--🌐color-hint);
+  --t-form__validationMessage\opacity: .62;
+}
+.t-form__input:out-of-range + .t-form__label::after {
+  --t-form__validationMessage\color: var(--🌐color-warning);
+  --t-form__validationMessage\opacity: 1;
+}
+
+/* Layout and design */
+.t-form {
+  display: grid;
+  grid-gap: var(--t-form\elementGap);
+}
+
+  .t-form__inputLabelGroup {
+    display: flex;
+    flex-direction: column-reverse;
+    max-width: var(--t-form__inputLabelGroup\maxWidth);
+    /* for absolute positioning of validation messages */
+    position: relative;
+  }
+
+  .t-form__input {
+    background-color: var(--t-form__input\background);
+    box-shadow: 0 0 0 var(--t-form__input\border-width) var(--t-form__input\border-color);
+    border-radius: var(--t-form__input\border-radius);
+    color: var(--t-form__input\color);
+    outline: 0;
+    padding: var(--t-form__input\padding);
+    text-align: var(--t-form__input\textAlign);
+    width: 100%;
+  }
+
+    .t-form__input::placeholder {
+      color: inherit;
+      opacity: .3;
+    }
+
+  .t-form__label {
+    color: var(--t-form__label\color);
+    font-size: var(--t-form__label\fontSize);
+    line-height: var(--t-form__label\lineHeight);
+    padding: var(--t-form__label\padding);
+    text-align: var(--t-form__label\textAlign);
+  }
+
+    .t-form__input + .t-form__label::after {
+      bottom: var(--t-form__validationMessage\positionBottom);
+      color: var(--t-form__validationMessage\color);
+      content: attr(data-validity-message);
+      font-size: var(--t-form__validationMessage\fontSize);
+      line-height: var(--t-form__validationMessage\lineHeight);
+      opacity: var(--t-form__validationMessage\opacity);
+      position: absolute;
+      right: var(--t-form__validationMessage\positionRight);
+      transition: var(--t-form__validationMessage\transition);
+    }
+
+  .t-form__slot-buttons {
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap: var(--t-form\elementGap);
+    margin-top: var(--t-form\elementGap);
+  }

@@ -1,0 +1,26 @@
+:root {
+  --lightness: 20%;
+
+  --🌐color-background: var(--🎨transparent-black--darkest);
+  --🌐color-background--highlight: var(--🎨transparent-black--darkest);
+
+  --🌐color-surface: var(--🎨black);
+  --🌐color-on-surface: var(--🎨gray--light);
+  --🌐color-surface--active: var(--🎨gray--medium);
+  --🌐color-surface-separator: var(--🎨gray);
+
+  --🌐color-surface--primary: var(--🎨primary);
+  --🌐color-on-surface--primary: var(--🎨white);
+
+  --🌐color-surface--secondary: var(--🎨secondary);
+  --🌐color-on-surface--secondary: var(--🎨white);
+
+  --🌐color-text: var(--🎨gray);
+  --🌐color-text--decent: var(--🎨gray--dark);
+
+  --🌐color-primary: var(--🎨primary);
+  --🌐color-secondary: var(--🎨secondary);
+  --🌐color-warning: var(--🎨warning);
+  --🌐color-success: var(--🎨success);
+  --🌐color-hint: var(--🎨hint);
+}
