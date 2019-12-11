@@ -1,1 +1,3 @@
 vssettings.code-workspace
+node_modules
+dist

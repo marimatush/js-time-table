@@ -1,0 +1,26 @@
+{
+  "name": "js-time-table",
+  "version": "1.0.0",
+  "description": "Student Time Sheet is a small browser application, that makes it easy to keep track of working times.\r It's created by working students for working students at Mister Spex.",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack.config.js --open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marimatush/js-time-table.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marimatush/js-time-table/issues"
+  },
+  "homepage": "https://github.com/marimatush/js-time-table#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}
